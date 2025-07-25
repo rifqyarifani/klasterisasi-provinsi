@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import type L from "leaflet";
+import type { Feature } from "geojson";
 import "leaflet/dist/leaflet.css";
 import { dataProvinsi } from "../data/dataProvinsi";
 
@@ -9,7 +11,12 @@ export default function Map() {
     // Import Leaflet only on the client
     import("leaflet").then((L) => {
       const map = L.default
-        .map("map", { zoomSnap: 0, wheelPxPerZoomLevel: 30, minZoom: 5.4 })
+        .map("map", {
+          zoomSnap: 0,
+          wheelPxPerZoomLevel: 30,
+          minZoom: 5.4,
+          maxZoom: 10,
+        })
         .setView([-2.5, 118], 5.4);
       // Set max bounds to Indonesia territory
       const indonesiaBounds = L.default.latLngBounds(
@@ -40,8 +47,6 @@ export default function Map() {
 
           const getColor = (klaster: number) => {
             switch (klaster) {
-              case 0:
-                return "#111";
               case 1:
                 return "red";
               case 2:
@@ -72,10 +77,9 @@ export default function Map() {
             fillOpacity: 0.5,
           };
 
-          const style = (feature: any) => {
-            const data = getProvinsiData(
-              feature.properties.Propinsi || feature.properties.provinsi
-            );
+          const style = (feature: Feature) => {
+            const props = feature.properties ?? {};
+            const data = getProvinsiData(props.Propinsi || props.provinsi);
             const klaster = data?.klaster;
             return {
               fillColor: getColor(klaster || 0),
@@ -83,10 +87,9 @@ export default function Map() {
             };
           };
 
-          const onEachFeature = (feature: any, layer: any) => {
-            const data = getProvinsiData(
-              feature.properties.Propinsi || feature.properties.provinsi
-            );
+          const onEachFeature = (feature: Feature, layer: L.Layer) => {
+            const props = feature.properties ?? {};
+            const data = getProvinsiData(props.Propinsi || props.provinsi);
 
             let popupContent = "";
             if (data) {
@@ -118,13 +121,15 @@ export default function Map() {
                 </div>
               `;
             } else {
-              popupContent = `<strong>${feature.properties.Propinsi}</strong><br />Data tidak tersedia`;
+              popupContent = `<strong>${
+                props.Propinsi || props.provinsi || "Provinsi tidak diketahui"
+              }</strong><br />Data tidak tersedia`;
             }
 
             // Custom tooltip logic
             layer.on({
-              mouseover: function (e: any) {
-                layer.setStyle(highlightStyle);
+              mouseover: function (_e: L.LeafletMouseEvent) {
+                (layer as L.Path).setStyle(highlightStyle);
                 // Create tooltip div if not exists
                 if (!tooltipDiv) {
                   tooltipDiv = document.createElement("div");
@@ -143,7 +148,7 @@ export default function Map() {
                 tooltipDiv.innerHTML = popupContent;
                 tooltipDiv.style.display = "block";
               },
-              mousemove: function (e: any) {
+              mousemove: function (e: L.LeafletMouseEvent) {
                 if (tooltipDiv) {
                   const rect = tooltipDiv.getBoundingClientRect();
                   const provinsiName = (
@@ -156,7 +161,8 @@ export default function Map() {
                     "MALUKU UTARA",
                     "NUSA TENGGARA TIMUR",
                   ].includes(provinsiName);
-                  let x, y;
+                  let x: number;
+                  const y = e.originalEvent.clientY - rect.height / 2;
                   if (showLeft) {
                     // Show to the left of the cursor
                     x = e.originalEvent.clientX - rect.width - 18;
@@ -164,26 +170,30 @@ export default function Map() {
                     // Show to the right of the cursor
                     x = e.originalEvent.clientX + 18;
                   }
-                  y = e.originalEvent.clientY - rect.height / 2;
                   tooltipDiv.style.left = x + "px";
                   tooltipDiv.style.top = y + "px";
                 }
               },
-              mouseout: function (e: any) {
-                layer.setStyle(style(feature));
+              mouseout: function (_e: L.LeafletMouseEvent) {
+                (layer as L.Path).setStyle(style(feature));
                 if (tooltipDiv) {
                   tooltipDiv.style.display = "none";
                 }
               },
-              click: function (e: any) {
-                map.fitBounds(layer.getBounds());
+              click: function (_e: L.LeafletMouseEvent) {
+                const bounds = (
+                  layer as L.Layer & { getBounds?: () => L.LatLngBounds }
+                ).getBounds;
+                if (typeof bounds === "function") {
+                  map.fitBounds(bounds.call(layer));
+                }
               },
             });
           };
 
           L.default
             .geoJSON(geoData, {
-              style,
+              style: style as L.GeoJSONOptions["style"],
               onEachFeature,
             })
             .addTo(map);
