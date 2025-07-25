@@ -8,7 +8,18 @@ export default function Map() {
   useEffect(() => {
     // Import Leaflet only on the client
     import("leaflet").then((L) => {
-      const map = L.default.map("map").setView([-2.5, 118], 5);
+      const map = L.default
+        .map("map", { zoomSnap: 0, wheelPxPerZoomLevel: 30, minZoom: 5.4 })
+        .setView([-2.5, 118], 5.4);
+      // Set max bounds to Indonesia territory
+      const indonesiaBounds = L.default.latLngBounds(
+        [-11.5, 90.9], // Southwest
+        [6.2, 145.1] // Northeast
+      );
+      map.setMaxBounds(indonesiaBounds);
+      map.on("drag", function () {
+        map.panInsideBounds(indonesiaBounds, { animate: false });
+      });
 
       L.default
         .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -42,6 +53,25 @@ export default function Map() {
             }
           };
 
+          // Tooltip element for custom hover info
+          let tooltipDiv: HTMLDivElement | null = null;
+
+          const defaultStyle = {
+            weight: 2,
+            opacity: 1,
+            color: "grey",
+            dashArray: "3",
+            fillOpacity: 0.8,
+          };
+
+          // Instead of border highlight, use a darker fill opacity
+          const highlightStyle = {
+            weight: 4,
+            color: "#666",
+            dashArray: "",
+            fillOpacity: 0.5,
+          };
+
           const style = (feature: any) => {
             const data = getProvinsiData(
               feature.properties.Propinsi || feature.properties.provinsi
@@ -49,10 +79,7 @@ export default function Map() {
             const klaster = data?.klaster;
             return {
               fillColor: getColor(klaster || 0),
-              weight: 1,
-              opacity: 1,
-              color: "grey",
-              fillOpacity: 0.8,
+              ...defaultStyle,
             };
           };
 
@@ -61,22 +88,97 @@ export default function Map() {
               feature.properties.Propinsi || feature.properties.provinsi
             );
 
+            let popupContent = "";
             if (data) {
-              const popupContent = `
-                <div style="font-family:sans-serif;">
-                  <strong>${data.provinsi}</strong><br />
-                  Klaster: ${data.klaster}<br />
-                  Belanja Modal: ${data.belanja_modal.toLocaleString()} Milyar<br />
-                  Belanja Subsidi: ${data.belanja_subsidi.toLocaleString()} Milyar<br />
-                  Belanja Bantuan Sosial: ${data.belanja_bantuan_sosial.toLocaleString()} Milyar
+              popupContent = `
+                <div style=\"font-family:sans-serif;min-width:320px;max-width:420px;\">
+                  <table style=\"border-collapse:collapse;width:100%;background:#fff;\">
+                    <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Provinsi</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${
+                      data.provinsi
+                    }</b></td></tr>
+                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">Klaster</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${
+                      data.klaster
+                    }</b></td></tr>
+                    <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Belanja Modal</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.belanja_modal.toLocaleString(
+                      "id-ID"
+                    )}</b> Milyar</td></tr>
+                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">Belanja Subsidi</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.belanja_subsidi.toLocaleString(
+                      "id-ID"
+                    )}</b> Milyar</td></tr>
+                    <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Belanja Bantuan Sosial</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.belanja_bantuan_sosial.toLocaleString(
+                      "id-ID"
+                    )}</b> Milyar</td></tr>
+                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">Persentase Penduduk <br>Miskin</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.persentase_penduduk_miskin.toLocaleString(
+                      "id-ID"
+                    )}</b> %</td></tr>
+                    <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Indeks Pembangunan <br>Manusia (IPM)</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.ipm.toLocaleString(
+                      "id-ID"
+                    )}</b></td></tr>
+                  </table>
                 </div>
               `;
-              layer.bindPopup(popupContent);
             } else {
-              layer.bindPopup(
-                `<strong>${feature.properties.Propinsi}</strong><br />Data tidak tersedia`
-              );
+              popupContent = `<strong>${feature.properties.Propinsi}</strong><br />Data tidak tersedia`;
             }
+
+            // Custom tooltip logic
+            layer.on({
+              mouseover: function (e: any) {
+                layer.setStyle(highlightStyle);
+                // Create tooltip div if not exists
+                if (!tooltipDiv) {
+                  tooltipDiv = document.createElement("div");
+                  tooltipDiv.style.position = "fixed";
+                  tooltipDiv.style.pointerEvents = "none";
+                  tooltipDiv.style.background = "rgba(255,255,255,0.97)";
+                  tooltipDiv.style.border = "1px solid #ccc";
+                  tooltipDiv.style.borderRadius = "8px";
+                  tooltipDiv.style.boxShadow = "0 2px 6px rgba(0,0,0,0.15)";
+                  tooltipDiv.style.padding = "12px 16px";
+                  tooltipDiv.style.fontFamily = "sans-serif";
+                  tooltipDiv.style.fontSize = "15px";
+                  tooltipDiv.style.zIndex = "9999";
+                  document.body.appendChild(tooltipDiv);
+                }
+                tooltipDiv.innerHTML = popupContent;
+                tooltipDiv.style.display = "block";
+              },
+              mousemove: function (e: any) {
+                if (tooltipDiv) {
+                  const rect = tooltipDiv.getBoundingClientRect();
+                  const provinsiName = (
+                    data && data.provinsi ? data.provinsi : ""
+                  ).toUpperCase();
+                  const showLeft = [
+                    "PAPUA",
+                    "PAPUA BARAT",
+                    "MALUKU",
+                    "MALUKU UTARA",
+                    "NUSA TENGGARA TIMUR",
+                  ].includes(provinsiName);
+                  let x, y;
+                  if (showLeft) {
+                    // Show to the left of the cursor
+                    x = e.originalEvent.clientX - rect.width - 18;
+                  } else {
+                    // Show to the right of the cursor
+                    x = e.originalEvent.clientX + 18;
+                  }
+                  y = e.originalEvent.clientY - rect.height / 2;
+                  tooltipDiv.style.left = x + "px";
+                  tooltipDiv.style.top = y + "px";
+                }
+              },
+              mouseout: function (e: any) {
+                layer.setStyle(style(feature));
+                if (tooltipDiv) {
+                  tooltipDiv.style.display = "none";
+                }
+              },
+              click: function (e: any) {
+                map.fitBounds(layer.getBounds());
+              },
+            });
           };
 
           L.default
@@ -85,6 +187,44 @@ export default function Map() {
               onEachFeature,
             })
             .addTo(map);
+
+          // Add legend control
+          const LegendControl = L.default.Control.extend({
+            options: { position: "bottomright" },
+            onAdd: function () {
+              const div = L.DomUtil.create("div", "info legend");
+              div.style.background = "rgba(255,255,255,0.95)";
+              div.style.padding = "10px 12px";
+              div.style.borderRadius = "8px";
+              div.style.boxShadow = "0 2px 6px rgba(0,0,0,0.15)";
+              div.style.fontFamily = "sans-serif";
+              div.style.fontSize = "15px";
+              div.style.lineHeight = "1.2";
+              div.innerHTML +=
+                '<div style="margin-bottom:8px;font-weight:600;">Keterangan Klaster</div>';
+              const grades = [0, 1, 2, 3];
+              const labels = [
+                "Klaster 0 (Terendah)",
+                "Klaster 1",
+                "Klaster 2",
+                "Klaster 3 (Tertinggi)",
+              ];
+              for (let i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                  '<div style="display:flex;align-items:center;margin-bottom:2px;">' +
+                  '<span style="display:inline-block;width:22px;height:22px;background:' +
+                  getColor(grades[i]) +
+                  ';margin-right:8px;border-radius:3px;border:1px solid #ccc;"></span>' +
+                  '<span style="color:#333;">' +
+                  labels[i] +
+                  "</span>" +
+                  "</div>";
+              }
+              return div;
+            },
+          });
+          const legend = new LegendControl();
+          legend.addTo(map);
         });
     });
   }, []);
