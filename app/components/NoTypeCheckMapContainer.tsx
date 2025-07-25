@@ -1,5 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
+import { MapContainerProps, TileLayerProps, GeoJSONProps } from "react-leaflet";
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -14,12 +15,12 @@ const GeoJSON = dynamic(
   { ssr: false }
 );
 
-export function NoTypeCheckMapContainer(props: any) {
+export function NoTypeCheckMapContainer(props: MapContainerProps) {
   return <MapContainer {...props} />;
 }
-export function NoTypeCheckTileLayer(props: any) {
+export function NoTypeCheckTileLayer(props: TileLayerProps) {
   return <TileLayer {...props} />;
 }
-export function NoTypeCheckGeoJSON(props: any) {
+export function NoTypeCheckGeoJSON(props: GeoJSONProps) {
   return <GeoJSON {...props} />;
 }
