@@ -6,6 +6,28 @@ import type { Feature } from "geojson";
 import "leaflet/dist/leaflet.css";
 import dataFix from "../data/dataFix.json";
 
+// Define the data structure type
+interface ProvinsiData {
+  nama_provinsi: string;
+  belanja_pegawai: number;
+  belanja_barang_dan_jasa: number;
+  belanja_modal: number;
+  belanja_bagi_hasil: number;
+  belanja_bantuan_keuangan: number;
+  belanja_subsidi: number;
+  belanja_hibah: number;
+  belanja_bantuan_sosial: number;
+  penduduk_miskin: number;
+  ipm_2024: number;
+  tingkat_pengangguran: number;
+  laju_pertumbuhan_pdrb: number;
+  pdrb_per_kapita: number;
+  rasio_gini_2024: number;
+  jumlah_penduduk: number;
+  klaster: string;
+  provinsi: string;
+}
+
 export default function Map() {
   useEffect(() => {
     // Import Leaflet only on the client
@@ -44,7 +66,7 @@ export default function Map() {
         .then((geoData) => {
           const getProvinsiData = (namaProvinsi: string) => {
             return dataFix.find(
-              (d: any) =>
+              (d: ProvinsiData) =>
                 d.provinsi.trim().toUpperCase() ===
                 namaProvinsi.trim().toUpperCase()
             );
@@ -132,7 +154,7 @@ export default function Map() {
 
             // Custom tooltip logic
             layer.on({
-              mouseover: function (_e: L.LeafletMouseEvent) {
+              mouseover: function () {
                 (layer as L.Path).setStyle(highlightStyle);
                 // Create tooltip div if not exists
                 if (!tooltipDiv) {
@@ -178,13 +200,13 @@ export default function Map() {
                   tooltipDiv.style.top = y + "px";
                 }
               },
-              mouseout: function (_e: L.LeafletMouseEvent) {
+              mouseout: function () {
                 (layer as L.Path).setStyle(style(feature));
                 if (tooltipDiv) {
                   tooltipDiv.style.display = "none";
                 }
               },
-              click: function (_e: L.LeafletMouseEvent) {
+              click: function () {
                 const bounds = (
                   layer as L.Layer & { getBounds?: () => L.LatLngBounds }
                 ).getBounds;
