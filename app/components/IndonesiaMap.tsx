@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import type L from "leaflet";
 import type { Feature } from "geojson";
 import "leaflet/dist/leaflet.css";
-import { dataProvinsi } from "../data/dataProvinsi";
+import dataFix from "../data/dataFix.json";
 
 export default function Map() {
   useEffect(() => {
@@ -29,32 +29,37 @@ export default function Map() {
       });
 
       L.default
-        .tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: "&copy; OpenStreetMap contributors",
-        })
+        .tileLayer(
+          "https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicmlmcXlhcmlmYW5pIiwiYSI6ImNtZTU0aWFmMzBmZjUyaXNhd2p0dWlmMnkifQ.m7e4p6Zp85O3aS1Ar3QX-A",
+          {
+            attribution: "© Mapbox © OpenStreetMap",
+            tileSize: 512,
+            zoomOffset: -1,
+          }
+        )
         .addTo(map);
 
       fetch("/indonesia-prov.geojson")
         .then((res) => res.json())
         .then((geoData) => {
           const getProvinsiData = (namaProvinsi: string) => {
-            return dataProvinsi.find(
-              (d) =>
+            return dataFix.find(
+              (d: any) =>
                 d.provinsi.trim().toUpperCase() ===
                 namaProvinsi.trim().toUpperCase()
             );
           };
 
-          const getColor = (klaster: number) => {
+          const getColor = (klaster: string) => {
             switch (klaster) {
-              case 1:
+              case "Capaian Rendah":
                 return "red";
-              case 2:
+              case "Capaian Menengah":
                 return "yellow";
-              case 3:
+              case "Capaian Tinggi":
                 return "green";
               default:
-                return "#ccc";
+                return "grey";
             }
           };
 
@@ -62,16 +67,15 @@ export default function Map() {
           let tooltipDiv: HTMLDivElement | null = null;
 
           const defaultStyle = {
-            weight: 2,
+            weight: 1,
             opacity: 1,
             color: "grey",
-            dashArray: "3",
             fillOpacity: 0.8,
           };
 
           // Instead of border highlight, use a darker fill opacity
           const highlightStyle = {
-            weight: 4,
+            weight: 3,
             color: "#666",
             dashArray: "",
             fillOpacity: 0.5,
@@ -82,7 +86,7 @@ export default function Map() {
             const data = getProvinsiData(props.Propinsi || props.provinsi);
             const klaster = data?.klaster;
             return {
-              fillColor: getColor(klaster || 0),
+              fillColor: getColor(klaster || ""),
               ...defaultStyle,
             };
           };
@@ -111,10 +115,10 @@ export default function Map() {
                     <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Belanja Bantuan Sosial</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.belanja_bantuan_sosial.toLocaleString(
                       "id-ID"
                     )}</b> Milyar</td></tr>
-                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">Persentase Penduduk <br>Miskin</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.persentase_penduduk_miskin.toLocaleString(
+                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">Persentase Penduduk <br>Miskin</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.penduduk_miskin.toLocaleString(
                       "id-ID"
                     )}</b> %</td></tr>
-                    <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Indeks Pembangunan <br>Manusia (IPM)</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.ipm.toLocaleString(
+                    <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Indeks Pembangunan <br>Manusia (IPM)</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.ipm_2024.toLocaleString(
                       "id-ID"
                     )}</b></td></tr>
                   </table>
@@ -212,12 +216,15 @@ export default function Map() {
               div.style.lineHeight = "1.2";
               div.innerHTML +=
                 '<div style="margin-bottom:8px;font-weight:600;">Keterangan Klaster</div>';
-              const grades = [0, 1, 2, 3];
+              const grades = [
+                "Capaian Rendah",
+                "Capaian Menengah",
+                "Capaian Tinggi",
+              ];
               const labels = [
-                "Klaster 0 (Terendah)",
-                "Klaster 1",
-                "Klaster 2",
-                "Klaster 3 (Tertinggi)",
+                "Capaian Rendah",
+                "Capaian Menengah",
+                "Capaian Tinggi",
               ];
               for (let i = 0; i < grades.length; i++) {
                 div.innerHTML +=
