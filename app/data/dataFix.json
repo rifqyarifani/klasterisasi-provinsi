@@ -16,7 +16,7 @@
     "pdrb_per_kapita": 43.78,
     "rasio_gini_2024": 29.4,
     "jumlah_penduduk": 5.48,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "NANGGROE ACEH DARUSSALAM"
   },
   {
@@ -36,7 +36,7 @@
     "pdrb_per_kapita": 73.58,
     "rasio_gini_2024": 30.6,
     "jumlah_penduduk": 15.39,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SUMATERA UTARA"
   },
   {
@@ -56,7 +56,7 @@
     "pdrb_per_kapita": 57.05,
     "rasio_gini_2024": 28.7,
     "jumlah_penduduk": 5.76,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SUMATERA BARAT"
   },
   {
@@ -76,7 +76,7 @@
     "pdrb_per_kapita": 165.35,
     "rasio_gini_2024": 30.6,
     "jumlah_penduduk": 6.64,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "RIAU"
   },
   {
@@ -96,7 +96,7 @@
     "pdrb_per_kapita": 75.13,
     "rasio_gini_2024": 33.1,
     "jumlah_penduduk": 8.74,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SUMATERA SELATAN"
   },
   {
@@ -116,7 +116,7 @@
     "pdrb_per_kapita": 51.37,
     "rasio_gini_2024": 30.1,
     "jumlah_penduduk": 9.31,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "LAMPUNG"
   },
   {
@@ -136,7 +136,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "KEPULAUAN BANGKA BELITUNG"
   },
   {
@@ -156,7 +156,7 @@
     "pdrb_per_kapita": 70.28,
     "rasio_gini_2024": 35.9,
     "jumlah_penduduk": 12.31,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "BANTEN"
   },
   {
@@ -176,7 +176,7 @@
     "pdrb_per_kapita": 344.35,
     "rasio_gini_2024": 43.1,
     "jumlah_penduduk": 10.67,
-    "klaster": "Capaian Tinggi",
+    "klaster": "Tinggi",
     "provinsi": "DKI JAKARTA"
   },
   {
@@ -196,7 +196,7 @@
     "pdrb_per_kapita": 56.08,
     "rasio_gini_2024": 42.8,
     "jumlah_penduduk": 49.86,
-    "klaster": "Capaian Rendah",
+    "klaster": "Menengah",
     "provinsi": "JAWA BARAT"
   },
   {
@@ -216,7 +216,7 @@
     "pdrb_per_kapita": 47.97,
     "rasio_gini_2024": 36.4,
     "jumlah_penduduk": 37.54,
-    "klaster": "Capaian Rendah",
+    "klaster": "Menengah",
     "provinsi": "JAWA TENGAH"
   },
   {
@@ -236,7 +236,7 @@
     "pdrb_per_kapita": 75.77,
     "rasio_gini_2024": 37.3,
     "jumlah_penduduk": 41.53,
-    "klaster": "Capaian Rendah",
+    "klaster": "Menengah",
     "provinsi": "JAWA TIMUR"
   },
   {
@@ -256,7 +256,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "DAERAH ISTIMEWA YOGYAKARTA"
   },
   {
@@ -276,7 +276,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "BALI"
   },
   {
@@ -296,7 +296,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "NUSA TENGGARA BARAT"
   },
   {
@@ -316,7 +316,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "NUSA TENGGARA TIMUR"
   },
   {
@@ -336,7 +336,7 @@
     "pdrb_per_kapita": 52.7,
     "rasio_gini_2024": 31.4,
     "jumlah_penduduk": 5.62,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "KALIMANTAN BARAT"
   },
   {
@@ -356,7 +356,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "KALIMANTAN TENGAH"
   },
   {
@@ -376,7 +376,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "KALIMANTAN SELATAN"
   },
   {
@@ -396,7 +396,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "KALIMANTAN TIMUR"
   },
   {
@@ -416,7 +416,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "KALIMANTAN UTARA"
   },
   {
@@ -436,7 +436,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SULAWESI UTARA"
   },
   {
@@ -456,7 +456,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SULAWESI TENGAH"
   },
   {
@@ -476,7 +476,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SULAWESI SELATAN"
   },
   {
@@ -496,7 +496,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SULAWESI TENGGARA"
   },
   {
@@ -516,7 +516,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "GORONTALO"
   },
   {
@@ -536,7 +536,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "SULAWESI BARAT"
   },
   {
@@ -556,7 +556,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "MALUKU"
   },
   {
@@ -576,7 +576,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "MALUKU UTARA"
   },
   {
@@ -596,7 +596,7 @@
     "pdrb_per_kapita": 81.01,
     "rasio_gini_2024": 40.5,
     "jumlah_penduduk": 4.48,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "PAPUA"
   },
   {
@@ -616,7 +616,7 @@
     "pdrb_per_kapita": 131.64,
     "rasio_gini_2024": 38.5,
     "jumlah_penduduk": 1.19,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "PAPUA BARAT"
   },
   {
@@ -636,7 +636,7 @@
     "pdrb_per_kapita": 86.72,
     "rasio_gini_2024": 27.9,
     "jumlah_penduduk": 3.68,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "JAMBI"
   },
   {
@@ -656,7 +656,7 @@
     "pdrb_per_kapita": 49.23,
     "rasio_gini_2024": 34.3,
     "jumlah_penduduk": 2.09,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "BENGKULU"
   },
   {
@@ -676,7 +676,7 @@
     "pdrb_per_kapita": 70.66,
     "rasio_gini_2024": 29.6,
     "jumlah_penduduk": 1.34,
-    "klaster": "Capaian Menengah",
+    "klaster": "Rendah",
     "provinsi": "KEPULAUAN RIAU"
   }
 ]

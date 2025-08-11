@@ -74,11 +74,11 @@ export default function Map() {
 
           const getColor = (klaster: string) => {
             switch (klaster) {
-              case "Capaian Rendah":
+              case "Rendah":
                 return "red";
-              case "Capaian Menengah":
+              case "Menengah":
                 return "yellow";
-              case "Capaian Tinggi":
+              case "Tinggi":
                 return "green";
               default:
                 return "grey";
@@ -237,17 +237,9 @@ export default function Map() {
               div.style.fontSize = "15px";
               div.style.lineHeight = "1.2";
               div.innerHTML +=
-                '<div style="margin-bottom:8px;font-weight:600;">Keterangan Klaster</div>';
-              const grades = [
-                "Capaian Rendah",
-                "Capaian Menengah",
-                "Capaian Tinggi",
-              ];
-              const labels = [
-                "Capaian Rendah",
-                "Capaian Menengah",
-                "Capaian Tinggi",
-              ];
+                '<div style="margin-bottom:8px;font-weight:600;">Kapasitas Fiskal</div>';
+              const grades = ["Rendah", "Menengah", "Tinggi"];
+              const labels = ["Rendah", "Menengah", "Tinggi"];
               for (let i = 0; i < grades.length; i++) {
                 div.innerHTML +=
                   '<div style="display:flex;align-items:center;margin-bottom:2px;">' +
