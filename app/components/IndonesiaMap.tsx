@@ -125,7 +125,7 @@ export default function Map() {
                     <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Provinsi</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${
                       data.provinsi
                     }</b></td></tr>
-                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">Klaster</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${
+                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">Kapasitas Fiskal  </td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${
                       data.klaster
                     }</b></td></tr>
                     <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Belanja Modal</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.belanja_modal.toLocaleString(
@@ -143,6 +143,9 @@ export default function Map() {
                     <tr style=\"background:#f7f7f7;\"><td style=\"padding:6px 10px;border:1px solid #ddd;\">Indeks Pembangunan <br>Manusia (IPM)</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.ipm_2024.toLocaleString(
                       "id-ID"
                     )}</b></td></tr>
+                    <tr><td style=\"padding:6px 10px;border:1px solid #ddd;\">PDRB Per Kapita</td><td style=\"padding:6px 10px;border:1px solid #ddd;\"><b>${data.pdrb_per_kapita.toLocaleString(
+                      "id-ID"
+                    )}</b> Juta</td></tr>
                   </table>
                 </div>
               `;
