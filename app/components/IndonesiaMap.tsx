@@ -35,9 +35,9 @@ export default function Map() {
       const map = L.default
         .map("map", {
           zoomSnap: 0,
-          wheelPxPerZoomLevel: 30,
+          wheelPxPerZoomLevel: 1,
           minZoom: 5.4,
-          maxZoom: 10,
+          maxZoom: 12,
         })
         .setView([-2.5, 118], 5.4);
       // Set max bounds to Indonesia territory
